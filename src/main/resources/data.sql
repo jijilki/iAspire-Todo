@@ -1,0 +1,1 @@
+INSERT INTO todo (todoId,todoName) values (112,'Buy Milk');
