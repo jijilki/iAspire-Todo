@@ -34,3 +34,5 @@ The following guides illustrate how to use some features concretely:
 * https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
 * https://www.baeldung.com/intro-to-project-lombok
 * https://www.baeldung.com/spring-boot-h2-database
+
+![img.png](img.png)
