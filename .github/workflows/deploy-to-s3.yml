@@ -1,4 +1,4 @@
-name: Build and Upload Spring Boot JAR to S3
+name: Build and Upload Spring Boot Artifacts to S3
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
       - name: Build with Maven
         run: mvn -B -DskipTests package --file pom.xml
 
-      - name: Upload JAR to S3 (only jars, no ACL)
+      - name: Upload JAR to S3 (only .jar files)
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --exclude "*" --include "*.jar" --follow-symlinks
@@ -39,3 +39,10 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-south-1
           SOURCE_DIR: target
+
+      - name: Upload Dockerfile to S3
+        run: aws s3 cp Dockerfile s3://neo-code-artifacts-bucket/Dockerfile
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-south-1
