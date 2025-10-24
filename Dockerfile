@@ -1,15 +1,13 @@
-
-# Use OpenJDK 17 base image
-FROM openjdk:17-jdk-slim
-# Set working directory
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy the built JAR file into the container
+# copy the built Spring Boot fat JAR (wildcard covers the versioned name)
 COPY target/*.jar app.jar
 
-# Expose the default Spring Boot port
+# create non-root user and set ownership
+RUN groupadd -r app && useradd -r -g app app && chown app:app /app/app.jar
+
+USER app
 EXPOSE 8080
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
-``
+ENTRYPOINT ["java","-jar","/app/app.jar"]
