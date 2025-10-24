@@ -1,9 +1,10 @@
+# yaml
 name: Build and Upload Spring Boot JAR to S3
 
 on:
   push:
     branches:
-      - main  # or your working branch
+      - main
 
 jobs:
   build-and-upload:
@@ -20,7 +21,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: mvn clean package --file iAspire-Todo/pom.xml
+        run: mvn clean package --file pom.xml
 
       - name: Upload JAR to S3
         uses: jakejarvis/s3-sync-action@master
@@ -31,4 +32,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-south-1
-          SOURCE_DIR: iAspire-Todo/target
+          SOURCE_DIR: target
